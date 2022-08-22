@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () =>{
                 </div>
                 <div class="col">
                   <div class="d-flex align-items-center">
-                    <a href="#" class="me-5 text-center" onclick="deleteThis('${json[i]['id']}')">Delete product <i class="fa-solid fa-trash-can ms-2"></i></a>
+                    <a href="#" class="me-5 text-center" onclick="deleteThis('${json[i]['id']}')">Delete product</a>
                     <div class="input-group inline-group" style="height: 41px;">
                       <div class="input-group-prepend bg-light">
                         <button class="button btn-minus btn-xs p-2">
@@ -225,8 +225,10 @@ addBtn.addEventListener('click', () => {
   })
   .then(response =>  {
     if(response.status == 503){alert('Please wait for order')}
-    else if(response.status == 201){alert('Success')}
-     response.json()
+    else if(response.status == 201){
+      alert('Success')
+    }
+    response.json()
   })
   // .then(data => {
   //     alert('Successfully Order', data);
