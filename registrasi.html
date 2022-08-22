@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/coffeeshop.css">
+    <link rel="icon" type="image/png" href="/assets/img/logo.svg">
+    <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/7a8257a6ed.js" crossorigin="anonymous"></script>
+    <title>Sign up - Copysop</title>
+</head>
+<body>
+    <!-- <div class="min-height-500 bg-secondary position-absolute w-100"></div> -->
+    <div class="main-content vh-100 justify-content-center">
+        <div class="container-sm position-absolute top-50 start-50 translate-middle">
+            <div class="card o-hidden border-0 shadow-lg my-5 col-lg-4 mx-auto">
+                <div class="card-header text-center pt-5 pb-0">
+                    <span class="ms-1 font-weight-bold text-black">Sign up into<b> Copy</b>sop</span><span class="ms-1" style="font-size: 10px; color: red;">Beta</span>
+                    <h6 class="h6 font-weight-normal mb-2 text-black" style="font-size: 12px;">or <a href="login.html">Log in</a></h6>
+                </div>
+                <div class="card-body">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="ps-6 pe-6 pb-5">
+                                <form id="formSignup">
+                                    <div class="mb-2">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" aria-describedby="usernameHelp" placeholder="Full Name">
+                                    </div>
+                                    <div class="mb-2">
+                                      <label for="username" class="form-label">Username</label>
+                                      <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp" placeholder="Username" maxlength="5">
+                                    </div>
+                                    <div class="mb-2">
+                                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                                      <input type="password" class="form-control" id="password" name="password" placeholder="*********" maxlength="6">
+                                    </div>
+                                    <!-- <button type="submit" class="btn btn-dark form-control mt-2">Sign up</button> -->
+                                    <input type="submit" value="Sign Up" class="btn btn-dark form-control mt-2">
+                                    <!-- <a href="#" type="submit" class="btn btn-secondary form-control mt-3">Sign up</a> -->
+                                    <p class="text-xs text-center mt-2">This page is a work in progress. Help us by writing a small introduction to the topic and suggesting a few links to read more about this topic.</p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer pt-3 fixed-bottom bg-dark">
+          <div class="container-fluid mb-2">
+            <div class="row align-items-center justify-content-lg-between">
+              <div class="col-lg-4 mb-lg-0 mb-4">
+                <div class="copyright text-center text-sm text-white text-lg-start">
+                  © <script>
+                    document.write(new Date().getFullYear())
+                  </script>,
+                  with <i class="fa fa-heart text-danger"></i> From <a href="https://www.irvan-syachrialdi.com" class="font-weight-bold text-white" target="_blank">Copysop</a>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                  <li class="nav-item">
+                    <a href="https://www.irvan-syachrialdi.com/vandina-project" class="nav-link text-white" target="_blank">About us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.irvan-syachrialdi.com/vandina-project" class="nav-link text-white" target="_blank">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="https://www.irvan-syachrialdi.com/license" class="nav-link pe-0 text-white" target="_blank">License</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+    </div>
+    <script>
+      const formSignUp = document.getElementById('formSignup');
+        formSignUp.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const data = new FormData(formSignUp);
+        const name = data.get('name');
+        const user = data.get('username');
+        const pass = data.get('password');
+        if ((user == "") || (pass == "") || (name == "")){
+          alert("Please insert Name or Username or Password")
+        }
+        else{
+          const addUser = { 
+              name: name, 
+              username: user,
+              password: pass,
+          };
+          
+          fetch('http://127.0.0.1:5000/register/', {
+              method: 'POST',
+              mode: 'cors',
+              credentials: 'same-origin',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(addUser)
+          })
+          .then(response => response.json())
+          .then(data => {
+              alert('Successfully register', data);
+              if(window.confirm){
+                  window.location.href = 'login.html';
+              }
+          })
+          .catch((error) => {
+              alert('Error:', error);
+          });
+            
+        }
+      })
+    </script>
+</body>
+</html>

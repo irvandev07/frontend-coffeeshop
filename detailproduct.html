@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/assets/img/logo.svg">
+    <link rel="stylesheet" href="assets/css/coffeeshop.css">
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/7a8257a6ed.js" crossorigin="anonymous"></script>
+    <!-- Font Google Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <title>Detail Product - Copysop</title>
+</head>
+<style>
+    .scroll {
+      writing-mode: vertical-rl;
+      text-align: center;
+      height:fit-content;
+    }
+    .container-main {
+      position: relative;
+      color: white;
+    }
+    .bottom-right {
+      position: absolute;
+      bottom: 10px;
+      right: 20rem;
+    }
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 60%;
+      transform: translate(-50%, -40%);
+    }
+    .centered-2 {
+      position: absolute;
+      top: 50%;
+      left: 30%;
+      text-align: left;
+      transform: translate(-50%, -50%);
+    }
+    .centered-3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      text-align: left;
+      transform: translate(-50%, -50%);
+    }
+    .centered-4 {
+      position: absolute;
+      top: 55%;
+      left: 25%;
+      text-align: left;
+      transform: translate(-50%, -50%);
+    }
+    .form-subs{
+      display: block;
+      width: 100%;
+      height: 45px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.4rem;
+      color: #495057;
+      background-color: #fff;
+      background-clip: padding-box;
+      /* border: 1px solid #d2d6da; */
+      border:1px solid #d2d6da;
+      appearance: none;
+      border-radius: 0;
+      transition: box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+    .form-subs:focus {
+      color: #495057;
+      background-color: #fff;
+      border-color: var(--bs-primary);
+      outline: 0;
+      /* box-shadow: 0 3px 9px rgba(50, 50, 9, 0), 3px 4px 8px rgba(94, 114, 228, 0.1); */
+    }
+    .btn-outline-light-subs:hover {
+      color: #000;
+      background-color: #e9ecef;
+      border-color: #e9ecef;
+    }
+    .btn-outline-light-subs {
+      color: #d2d6da;
+      border-color: #d2d6da;
+      height: 45px;
+    }
+    .image-coffee {
+      transition: transform .7s ease-in-out;
+    }
+    .image-coffee:hover {
+      transform: rotate(180deg);
+      -webkit-transform: rotate(90deg);
+    }
+    .fit-image{
+      width: 100%;
+      object-fit: cover;
+      /* height: 300px; only if you want fixed height */
+    }
+    .image {
+      opacity: 1;
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: .5s ease;
+      backface-visibility: hidden;
+    }
+
+    .middle {
+      transition: .5s ease;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .img-hover:hover .image {
+      opacity: 0.3;
+    }
+
+    .img-hover:hover .middle {
+      opacity: 1;
+    }
+
+    .text {
+      color: #000;
+      font-size: 16px;
+    }
+
+    .inline-group {
+        max-width: 6rem;
+    }
+
+    .inline-group .form-control {
+        text-align: right;
+    }
+
+    .form-control[type="number"]::-webkit-inner-spin-button,
+    .form-control[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .button {
+        background-color: transparent; /* Green */
+        border: none;
+        color: #67748e;
+        /* padding: 15px 32px; */
+        text-align: center;
+        display: inline-block;
+        font-size: 12px;
+        margin-top: 3px;
+    }
+
+    .dropdown__tags {
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+  }
+
+  .dropdown__content--tags {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 1px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 3px -3px rgba(0, 0, 0, 0.24);
+      z-index: 1;
+      width: 200px;
+      height: auto;
+      min-width: 150px;
+      left: 50% !important;
+      transform: translateX(-70%) !important;
+      top: 100% !important;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+  }
+
+  .dropdown__content--tags a {
+      color: rgb(185, 185, 185);
+      font-size: 14px;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+      font-weight: 400;
+  }
+
+  .dropdown__content--tags a:hover {
+      font-weight: 700;
+      color: #000;
+  }
+
+  .dropdown__tags:hover .dropdown__content--tags {
+      display: block;
+  }
+  .dropdown__tags a:hover{
+    background-color: rgb(238, 238, 238);
+    color: #000;
+  }
+
+  .dropdown__cart {
+    position: relative;
+    display: inline-block;
+    padding: 8px;
+  }
+
+  .dropdown__content--cart {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      box-shadow: 0 1px 3px -2px rgba(0, 0, 0, 0.12), 0 1px 3px -3px rgba(0, 0, 0, 0.24);
+      z-index: 1;
+      width: 25rem;
+      height: auto;
+      min-width: 150px;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      top: 100% !important;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+  }
+
+  .dropdown__content--cart a {
+      color: rgb(185, 185, 185);
+      font-size: 14px;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: block;
+      font-weight: 400;
+  }
+
+  .dropdown__content--cart a:hover {
+      font-weight: 700;
+      color: #000;
+  }
+
+  .dropdown__cart:hover .dropdown__content--cart {
+      display: block;
+  }
+  .dropdown__cart .cart-product:hover{
+    background-color: rgb(238, 238, 238);
+    color: #000;
+  }
+</style>
+<body>
+    <div class="container">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1 border-bottom fixed-top bg-white">
+        <div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 0fr 2fr;">
+          <a href="/" class="d-flex align-items-center mb-2 mb-md-0 text-dark text-decoration-none">
+            <svg width="32px" height="32px" viewBox="0 -336.5 1673 1673" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#000" d="M1234.088 0c-17.007 -.029 -33.724 8.105 -43.985 23.232 -53.995 79.594 -24.06 144.018 3.636 203.578 13.59 29.247 26.035 56.171 5.148 72.01 -23.289 17.664 -27.831 50.909 -10.167 74.198 17.664 23.289 50.909 27.864 74.198 10.199 89.109 -67.646 59.571 -131.342 27.253 -200.843 -15.626 -33.595 -32.513 -70.009 -12.388 -99.68 16.417 -24.2 10.106 -57.137 -14.094 -73.555 -9.075 -6.156 -19.398 -9.121 -29.602 -9.138zm-1021.554 120.693c-80.17 0 -156.456 39.494 -202.483 105.183 -17.545 24.942 -11.525 59.42 13.417 76.965 24.942 17.546 59.387 11.525 76.933 -13.417 44.351 -63.225 131.302 -76.568 192.283 -32.594l.065 -.065c3.54 2.593 7.438 5.695 11.423 9.332l.451 .451 .966 1.03c3.667 3.383 7.298 7.019 10.618 10.843l.869 1.095 .129 .226 .032 -.032 1.03 1.319 .289 .322c20.389 22.667 55.361 24.475 78.026 4.087 22.571 -20.295 24.513 -55.039 4.407 -77.737 -46.438 -54.467 -116.315 -87.004 -188.454 -87.004zm499.468 0c-80.169 0 -156.457 39.494 -202.483 105.183 -17.546 24.942 -11.557 59.42 13.385 76.965 24.942 17.546 59.42 11.525 76.965 -13.417 44.352 -63.225 131.271 -76.568 192.252 -32.594l.065 -.065c3.541 2.593 7.472 5.695 11.455 9.332l.451 .451 .966 1.03c3.668 3.383 7.266 7.019 10.585 10.843l.901 1.095 .129 .226 .032 -.032 1.03 1.319 .289 .321c20.391 22.667 55.36 24.475 78.026 4.087 22.571 -20.295 24.481 -55.039 4.376 -77.737 -46.439 -54.467 -116.282 -87.004 -188.422 -87.004zm206.023 345.956c-24.141 0 -43.759 19.617 -43.759 43.759l.194 3.25 -.386 275.265l-.161 0l0 .194l.161 0c.049 57.907 23.804 110.667 61.843 148.782l.129 .065 .065 .097 .226 .194c38.063 37.888 90.491 61.46 148.074 61.585l0 .161l225.136 0c1.699 0 3.403 -.146 5.051 -.322 13.771 -.425 27.112 -2.114 39.835 -4.987 14.596 -3.325 28.472 -8.088 41.443 -14.061 54.783 -25.318 97.162 -73.694 114.482 -132.501l30.954 0l0 -.161c36.289 -.049 69.306 -14.88 93.15 -38.772 23.618 -23.644 38.357 -56.434 38.482 -92.474l0 -.161l.161 0l0 -118.119l-.161 0c-.049 -36.214 -14.891 -69.227 -38.708 -93.021l.097 -.065c-23.643 -23.643 -56.479 -38.365 -92.667 -38.514l-.161 0l0 -.194l-623.473 0zm603.717 100.518c11.019 .069 21.2 4.758 28.701 12.259l.097 -.097 .064 .097c7.478 7.454 12.173 17.753 12.195 28.959l-.161 0l0 109.399l.161 0c-.093 11.112 -4.795 21.408 -12.227 28.862 -7.453 7.479 -17.794 12.141 -29.024 12.163l0 -.161l-61.81 0l0 .129c-20.626 0 -38.312 15.793 -40.188 36.746 -3.82 41.347 -30.102 76.608 -66.54 93.438 -7.199 3.31 -14.697 5.944 -22.266 7.658 -6.923 1.55 -14.025 2.513 -21.107 2.768l-2.768 -.065l-208.533 0l0 .161c-30.836 -.046 -59.04 -12.727 -79.667 -33.077l-.741 -.709c-20.742 -20.721 -33.699 -49.351 -33.721 -80.697l.161 0l0 -.161l-.161 0l.289 -217.51l537.242 0l0 -.161zm-81.856 54.731l0 96.528l32.562 0c21.04 0 38.257 -17.223 38.257 -38.29l0 -19.917c0 -21.066 -17.215 -38.322 -38.257 -38.322l-32.562 0zm-1131.017 12.485c-30.17 0 -54.667 24.497 -54.667 54.667s24.497 54.667 54.667 54.667l296.599 .032c30.17 0 54.667 -24.497 54.667 -54.667s-24.497 -54.667 -54.667 -54.667l-296.599 -.032z"/>
+            </svg>
+            <span class="fs-4 font-weight-bolder ms-2 text-dark">Copysop</span><span class="ms-1 mt-3" style="font-size: 10px; color: #DA1C5C;">Beta</span>
+          </a>
+    
+          <div class="d-flex align-items-center">
+            <div class="w-100 me-3 ms-3">
+              <ul class="nav nav-pills col-12 col-md-auto mb-2 justify-content-center mb-md-0 bg-transparent">
+                <li><a href="index.html" class="nav-link px-2">Home</a></li>
+                <li><a href="product.html" class="nav-link px-2">Product</a></li>
+                <li><a href="#" class="nav-link px-2">Contact</a></li>
+                <li><a href="#" class="nav-link px-2">About</a></li>
+                <!-- <li><a href="#" class="nav-link px-2 link-dark">About</a></li> -->
+              </ul>
+            </div>
+
+            <div class="dropdown__cart">
+              <!-- <button class="dropbtn">Dropdown</button> -->
+              <a href="cart.html" class="btn btn-xs rounded-0  cart-product mb-0">
+                <span class="material-symbols-outlined" style="font-size: 24px;">
+                    shopping_cart
+                </span>
+              </a>
+              <div class="dropdown__content--cart">
+                <div class="card" style="width: 25rem;">
+                  <div class="container mt-3" id="header-count-cart">
+                    <div class="row">
+                      <div class="col text-start">
+                        <span class="text-bolder text-sm text-dark">Total cart <span id="count-cart"></span></span>
+                      </div>
+                      <div class="col text-end">
+                        <a href="cart.html" class="text-bolder text-sm text-danger see-now p-0" style="font-weight: bolder;" id="link-cart">See now</a>
+                      </div>
+                    </div>
+                    <hr>
+                  </div>
+                  <img src="/assets/img/logo-black.svg" width="100" class="mx-auto d-block mt-3 d-none" id="img-none-cart">
+                  <div class="card-body pt-0" id="cart-list">
+                    <p class="card-text text-center m-0 p-0 text-bold text-dark d-none" id="text-cart-none">Oops sorry</p>
+                    <p class="text-sm text-center m-0 p-0 d-none" id="text-body-none">no item product in carts</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="vr me-3 bg-dark mt-3 mb-3" style="width: 2px;"></div>
+            <div class="d-flex align-items-center" id="btn-regis-login">
+              <a href="login.html" class="btn btn-light btn-sm mb-0 me-2 rounded-0">Login</a>
+              <a href="registrasi.html" class="btn btn-dark btn-sm mb-0 me-2 rounded-0">Regis</a>
+            </div>
+
+            <div class="dropdown__tags px-2 w-15 " id="btn-user">
+              <!-- <button class="dropbtn">Dropdown</button> -->
+              <a class="btn btn-xs rounded-0 mb-0">
+                <img src="/assets/img/user.png" width="24" id="image-user">
+                <span id="username" class="ms-1 text-normal text-sm align-items-center">Username</span>
+              </a>
+              <div class="dropdown__content--tags">
+                <a class="dropdown-item" href="account.html">Account</a>
+                <a class="dropdown-item" href="history.html">Orders</a>
+                <hr class="dropdown-divider">
+                <a class="dropdown-item" href="#" onclick="logoutUser()">Sign out</a>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="container bg-white position-relative mt-8">
+        <h3 class="text-dark position-absolute top-10 start-50 translate-middle max-width-500 text-center" id="name">Coffee Beans 200g</h3>
+        <div class="container" >
+            <div class="row">
+              <div class="col text-center bg-light me-2 d-flex align-items-center">
+                <img src="" alt="" id="image" class="img-responsive fit-image">
+              </div>
+              <div class="vr m-0 p-0 mt-10" style="background-color: #000; width: 2px; opacity: 100%;"></div>
+              <div class="col min-vh-50" style="background-color: #e9ecef;">
+                <p class="text-end pe-6 pt-8 text-xs" id="itemCode">item code: 856d8b04-60a3-4ec2-991c-168ec2651b8b</p>
+                <p class="text-start ps-6 pe-6 pt-5 text-dark text-sm" id="desc">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
+                <p class="text-start ps-6 pe-6 pt-2 text-dark text-3xl text-bolder" id="price">Rp 119<span class="text-lg">.000</span></p>
+                <p class="text-start ps-6 pe-6  text-dark text-sm text-bolder" id="stock">119</p>
+                <div class="container ms-6 p-0 mb-5">
+                    <div class="row row-cols-auto">
+                      <div class="col me-0 pe-0">
+                        <div class="input-group inline-group" style="height: 41px;" >
+                          <div class="input-group-prepend bg-white">
+                            <button class="button btn-minus btn-xs p-2">
+                              <i class="fa fa-minus"></i>
+                            </button>
+                          </div>
+                          <input class="form-control quantity bg-white border-0 text-center" min="0" name="quantity" value="1" type="number" id="quantity">
+                          <div class="input-group-append bg-white">
+                            <button class="button btn-plus btn-xs p-2" id="quantity-cart">
+                              <i class="fa fa-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col ps-0 ms-0">
+                        <button class="btn btn-dark" id="add-cart" onclick="addCart()">ADD TO CART</button>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <section class="mt-1 mb-4">
+        <div class="album py-5 bg-white">
+          <h6 class="text-start text-dark text-bolder pt-5 pb-2" style="margin-left: 5rem">Popular product</h6>
+          <div class="container">
+              <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3" id="col-product">
+              </div>
+          </div>
+        </div>
+    </section>
+    <div class="container-fluid bg-dark">
+        <div class="container text-center text-white p-5">
+          <div class="row">
+            <div class="col border border-bottom-0 border-start-0 border-top-0 me-3">
+              <div class="container text-center">
+                <div class="row">
+                  <div class="col">
+                    <span>Stay inspired with us</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col mt-4">
+                    <a href="" class="btn btn-outline-white btn-sm rounded-0">Visit our blog</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col border border-bottom-0 border-start-0 border-top-0">
+              <div class="container text-center">
+                <div class="row">
+                  <div class="col">
+                    <span>Giving back is simple</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col mt-4">
+                    <a href="" class="btn btn-outline-white btn-sm rounded-0">Learn more</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="container text-center">
+                <div class="row">
+                  <div class="col">
+                    <span>Visit our tiny storefront</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col mt-4">
+                    <a href="" class="btn btn-outline-white btn-sm rounded-0">See where at</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="container-fluid mt-4 mb-4">
+        <div class="container">
+          <div class="row">
+            <div class="col border border-bottom-0 border-start-0 border-top-0">
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <p class="text-bolder" style="color: #888;">HELPFUL LINK </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <a href="" class="text-dark"><p class="mb-0" style="font-family: Ibarra Real Nova;">upcoming events</p></a>
+                    <a href="" class="text-dark"><p class="mb-0" style="font-family: Ibarra Real Nova;">frequent questions</p></a>
+                    <a href="" class="text-dark"><p class="mb-0" style="font-family: Ibarra Real Nova;">help or support</p></a>
+                  </div>
+                  <div class="col">
+                    <a href="" class="text-dark"><p class="mb-0" style="font-family: Ibarra Real Nova;">partnerships</p></a>
+                    <a href="" class="text-dark"><p class="mb-0" style="font-family: Ibarra Real Nova;">locations</p></a>
+                    <a href="" class="text-dark"><p class="mb-0" style="font-family: Ibarra Real Nova;">featured / press</p></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col text-center border border-bottom-0 border-start-0 border-top-0">
+              <i class="fa-brands fa-facebook-f me-4" style="color: #888;"></i>
+              <i class="fa-brands fa-twitter me-4" style="color: #888;"></i>
+              <i class="fa-brands fa-instagram me-4" style="color: #888;"></i>
+              <i class="fa-brands fa-pinterest-p me-4" style="color: #888;"></i>
+              <p class="fst-italic mb-0 mt-4 text-normal" style="font-family: Ibarra Real Nova;">we are happily based and maintained in</p>
+              <p class="text-dark fw-bolder">Bandung, Indonesia</p>
+            </div>
+            <div class="col">
+              <p class="text-bolder" style="color: #888;">NEWS & SPECIAL OFFERS</p>
+              <div class="container ps-0 ms-0 mb-0">
+                <div class="row">
+                  <div class="col-8 pe-0 me-0">
+                    <input type="text" class="form-subs" id="email" aria-describedby="usernameHelp" placeholder="your email address">
+                  </div>
+                  <div class="col ms-0 ps-0">
+                    <a href="" class="btn btn-outline-light-subs"><i class="fa-solid fa-angle-right"></i></a>
+                  </div>
+                </div>
+              </div>
+              <p class="text-dark text-sm text-bold" style="font-family: Ibarra Real Nova;">copyright <script>
+                document.write(new Date().getFullYear())
+              </script>,The Copysop. </p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="mb-3">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+       $('.btn-plus, .btn-minus').on('click', function(e) {
+          const isNegative = $(e.target).closest('.btn-minus').is('.btn-minus');
+          const input = $(e.target).closest('.input-group').find('input');
+          if (input.is('input')) {
+              input[0][isNegative ? 'stepDown' : 'stepUp']()
+          }
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="/assets/js/detailProduct.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+</body>
+</html>

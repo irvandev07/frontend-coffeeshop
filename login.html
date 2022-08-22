@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/coffeeshop.css">
+    <link rel="icon" type="image/png" href="/assets/img/logo.svg">
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/7a8257a6ed.js" crossorigin="anonymous"></script>
+    <title>Sign in - Copysop</title>
+    <style>
+      input.invalid {
+        border-color: red;
+      }
+      #usernameError,#passError {
+        display: none;
+        font-size: .7em;
+        color: #FF5F73;
+      }
+    </style>
+</head>
+<body>
+    <!-- <div class="min-height-500 bg-secondary position-absolute w-100"></div> -->
+    <div class="main-content vh-100 justify-content-center">
+        <div class="container-sm position-absolute top-50 start-50 translate-middle">
+            <div class="card o-hidden border-0 shadow-lg my-5 col-lg-4 mx-auto">
+                <div class="card-header text-center pt-5 pb-0">
+                    <span class="ms-1 font-weight-bold text-black">Login into<b> Copy</b>sop</span><span class="ms-1" style="font-size: 10px; color: red;">Beta</span>
+                    <h6 class="h6 font-weight-normal mb-2 text-black" style="font-size: 12px;">or <a href="registrasi.html">Create account</a></h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="ps-6 pe-6 pb-5">
+                                <form id="formLogin">
+                                    <div class="mb-2">
+                                      <label for="username" class="form-label">Username</label>
+                                      <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp" placeholder="Username" minlength="5">
+                                      <!-- <span role="alert" id="usernameError" aria-hidden="true">
+                                        Please enter username
+                                      </span> -->
+                                    </div>
+                                    <div class="mb-2">
+                                      <label for="exampleInputPassword1" class="form-label">Password</label>
+                                      <input type="password" class="form-control" id="password" name="password" placeholder="*********" minlength="6">
+                                      <!-- <span role="alert" id="passError" aria-hidden="true">
+                                        Please enter password
+                                      </span> -->
+                                    </div>
+                                    <a href="resetpw.html" class="h6 text-xs float-end mt-2">Can't Login ?</a>
+                                    <!-- <a href="" type="submit" id="submit" class="btn btn-dark form-control mt-2">Log in</a> -->
+                                    <input type="submit" value="Log In" class="btn btn-dark form-control mt-2">
+                                    <!-- <a href="#" type="submit" class="btn btn-secondary form-control mt-2">Log in</a> -->
+                                    <p class="text-xs text-center mt-2">This page is a work in progress. Help us by writing a small introduction to the topic and suggesting a few links to read more about this topic.</p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer pt-3 fixed-bottom bg-dark">
+          <div class="container-fluid mb-2">
+            <div class="row align-items-center justify-content-lg-between">
+              <div class="col-lg-4 mb-lg-0 mb-4">
+                <div class="copyright text-center text-sm text-white text-lg-start">
+                  © <script>
+                    document.write(new Date().getFullYear())
+                  </script>,
+                  with <i class="fa fa-heart text-danger"></i> From <a href="https://www.irvan-syachrialdi.com" class="font-weight-bold text-white" target="_blank">Copysop</a>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                  <li class="nav-item">
+                    <a href="" class="nav-link text-white" target="_blank">About us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link text-white" target="_blank">Blog</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="" class="nav-link pe-0 text-white" target="_blank">License</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+    </div>
+    <script>
+      const form = document.getElementById('formLogin');
+      form.addEventListener('submit', (e) => {
+          e.preventDefault()
+          
+          // console.log(window.location.href)
+          const data = new FormData(form);
+          const user = data.get('username');
+          const pass = data.get('password');
+          if ((user == "") || (pass == "")){
+              swal({
+                title: "Oops!",
+                text: "Please enter Username and Password",
+                icon: "warning",
+                buttons: {
+                  confirm : {text:'OK', className:'btn btn-dark'}
+                }
+              });
+            }
+          else{
+              const url = "http://127.0.0.1:5000/login/",
+              credentials = btoa(`${user}:${pass}`);
+              fetch (url, {
+                  method: 'POST',
+                  mode : 'cors',
+                  credentials: 'include',
+                  headers: {
+                    "Authorization": `Basic ${credentials}`
+                  }
+              })
+              .then((result) => {
+                  if (result.status == 401 ) {alert("Please check username or password");}
+                  return result.json();
+              })
+              .then((response) => {
+                  const token = response['token']
+                  let tokens = token.split(".");
+                  const user = JSON.parse(atob(tokens[1]));
+                  if(document.referrer){
+                    if(user['is_admin'] == false){
+                      localStorage.setItem('token_user', response['token']);
+                      window.location.href = document.referrer
+                    }
+                    else{
+                      localStorage.setItem('token_admin', response['token']);
+                      window.location.href = '/admin/dashboard.html';
+                    }
+                  }
+                  else{
+                    if(user['is_admin'] == false){
+                      localStorage.setItem('token_user', response['token']);
+                      window.location.href = 'index.html'
+                    }
+                    else{
+                      localStorage.setItem('token_admin', response['token']);
+                      window.location.href = '/admin/dashboard.html';
+                    }
+                  }
+              })
+              .catch((error) => { alert(error); });
+          }
+      })
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>
